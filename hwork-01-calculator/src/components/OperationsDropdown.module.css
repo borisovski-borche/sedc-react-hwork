@@ -1,0 +1,9 @@
+.OperationsDropdown {
+  width: 4rem;
+  font-size: 4rem;
+  border: none;
+  background-color: #f1faee;
+}
+
+.OperationsDropdown option {
+}

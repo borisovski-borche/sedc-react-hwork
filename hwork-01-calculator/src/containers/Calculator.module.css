@@ -1,0 +1,26 @@
+.Calculator {
+  width: 1000px;
+  height: 250px;
+  background-color: #f1faee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.Calculator div:nth-of-type(1) {
+  font-size: 4rem;
+}
+
+.result {
+  width: 20rem;
+  height: 4rem;
+  background-color: white;
+  border: 1px solid black;
+  margin: 20px;
+  border: 2px #457b9d solid;
+  font-size: 3.5rem;
+  padding: 1px 2px;
+  font-family: sans-serif;
+  overflow: hidden;
+}
