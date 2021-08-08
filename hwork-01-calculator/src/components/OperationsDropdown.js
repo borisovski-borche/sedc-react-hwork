@@ -5,7 +5,7 @@ const OperationsDropdown = props => {
     <select
       className={classes.OperationsDropdown}
       value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      onChange={e => props.onChange(props.inputId, e.target.value)}
     >
       <option value="add">+</option>
       <option value="subtract">−</option>

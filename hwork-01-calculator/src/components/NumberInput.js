@@ -6,7 +6,7 @@ const NumberInput = props => {
       className={classes.NumberInput}
       type="number"
       value={props.value}
-      onChange={e => props.onChange(e.target.value)}
+      onChange={e => props.onChange(props.inputId, e.target.value)}
     />
   );
 };
