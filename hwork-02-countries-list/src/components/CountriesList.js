@@ -13,6 +13,7 @@ const CountriesList = () => {
     { id: uuid(), name: "Spain" },
     { id: uuid(), name: "Brazil" },
   ]);
+  const [validEdit, setValidEdit] = useState(true);
 
   const onCountryDelete = id => {
     setCountries(() => {
@@ -21,24 +22,38 @@ const CountriesList = () => {
   };
 
   const onCountryAdd = name => {
+    if (countries.some(el => el.name === name)) {
+      setValidEdit(false);
+      setCountryName("");
+      return;
+    }
+
     if (name) {
       setCountries(prevCountries => {
         return [...prevCountries, { id: uuid(), name: name }];
       });
       setCountryName("");
+      setValidEdit(true);
     }
   };
 
   const onCountryEdit = (id, name) => {
+    if (countries.some(el => el.name === name && el.id !== id)) {
+      setValidEdit(false);
+      return;
+    }
+
     if (name) {
       setCountries(prevCountries => {
         return prevCountries.map(el => {
           if (el.id === id) {
+            console.log("id check");
             return { id: el.id, name: name };
           }
           return el;
         });
       });
+      setValidEdit(true);
     }
   };
 
@@ -57,6 +72,9 @@ const CountriesList = () => {
           </button>
         </div>
       </div>
+      {!validEdit && (
+        <div className="text-danger row mx-5">Country Name Already Exists!</div>
+      )}
       <div className="row">
         <ul className="list-group p-4">
           {countries.map(country => (

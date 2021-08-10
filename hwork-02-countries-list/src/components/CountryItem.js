@@ -13,11 +13,10 @@ const CountryItem = props => {
       setIsEditing(false);
       onCountryEdit(id, editedName);
       setEditedName("");
+      return;
     }
-    if (!isEditing) {
-      setIsEditing(true);
-      setEditedName(name);
-    }
+    setIsEditing(true);
+    setEditedName(name);
   };
 
   return (
