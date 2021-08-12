@@ -51,7 +51,11 @@ const Pagination = props => {
           );
         })}
 
-        <li className={`page-item ${props.nextDisabled ? "disabled" : ""}`}>
+        <li
+          className={`page-item ${
+            Math.ceil(props.total / 10) === props.currentPage ? "disabled" : ""
+          }`}
+        >
           <button
             className="page-link"
             href="#"
