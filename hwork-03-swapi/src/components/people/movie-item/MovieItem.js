@@ -36,7 +36,7 @@ const MovieItem = props => {
   );
 
   const jsx = movieData.title ? (
-    <li className={`list-group-item ${detailsToggle ? "bg-light" : ""}`}>
+    <li className={`list-group-item`}>
       <div className="row">
         <h3 className="col-9">{movieData.title}</h3>
         <button
