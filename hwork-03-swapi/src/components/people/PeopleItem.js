@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+import MovieItem from "./movie-item/MovieItem";
 
 const PeopleItem = props => {
   const { person } = props;
@@ -20,9 +22,21 @@ const PeopleItem = props => {
         <li>Eye Color: {person.eye_color}</li>
         <li>Hair Color: {person.hair_color}</li>
         <li>Skin Color: {person.skin_color}</li>
+        <li className="ms-4 mt-2">
+          <p className="fw-bold fs-4">Movies :</p>
+          <ul className="list-group">
+            {person.films.map(url => (
+              <MovieItem movieUrl={url} key={url} />
+            ))}
+          </ul>
+        </li>
       </ul>
     </div>
   );
+
+  useEffect(() => {}, []);
+
+  useEffect(() => {}, []);
 
   return (
     <li className={`list-group-item ${detailsToggle ? "bg-light" : ""}`}>
@@ -30,7 +44,9 @@ const PeopleItem = props => {
         <h3 className="col-9">{person.name}</h3>
         <button
           className={`btn col-3 btn-${detailsToggle ? "danger" : "primary"}`}
-          onClick={() => setDetailsToggle(!detailsToggle)}
+          onClick={() => {
+            setDetailsToggle(!detailsToggle);
+          }}
         >
           {detailsToggle ? "Hide Details" : "Show Details"}
         </button>

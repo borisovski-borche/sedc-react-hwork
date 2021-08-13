@@ -13,6 +13,7 @@ class PeopleList extends Component {
       currentPage: 1,
       total: 0,
       loading: false,
+      hideDetails: true,
     };
   }
   changePage = number => {
@@ -23,13 +24,28 @@ class PeopleList extends Component {
 
   componentDidMount() {
     this.fetchPeople(this.state.currentPage);
+    this.setState({
+      hideDetails: !this.state.hideDetails,
+    });
   }
 
   componentDidUpdate(_, prevState) {
+    console.log("updated");
     if (prevState.currentPage !== this.state.currentPage) {
       this.fetchPeople(this.state.currentPage);
     }
+    if (!this.state.hideDetails) {
+      this.setState({
+        hideDetails: true,
+      });
+    }
   }
+
+  hideAllDetails = bool => {
+    this.setState({
+      hideDetails: bool,
+    });
+  };
 
   fetchPeople = async page => {
     this.setState({
@@ -55,6 +71,8 @@ class PeopleList extends Component {
   };
 
   render() {
+    console.log("rerendered");
+
     return (
       <div className="d-flex flex-column p-3 col-6">
         <h2 className="text-center m-3">People of Star Wars</h2>
