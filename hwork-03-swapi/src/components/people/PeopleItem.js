@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import MovieItem from "./movie-item/MovieItem";
 
 const PeopleItem = props => {
-  const { person } = props;
+  const { person, personId, onDetailsChanged, selectedId } = props;
 
   const style = {
     listStyle: "none",
@@ -12,6 +12,14 @@ const PeopleItem = props => {
   };
 
   const [detailsToggle, setDetailsToggle] = useState(false);
+
+  useEffect(() => {
+    if (personId === selectedId) {
+      setDetailsToggle(true);
+      return;
+    }
+    setDetailsToggle(false);
+  }, [personId, selectedId]);
 
   const details = (
     <div className="row">
@@ -23,7 +31,7 @@ const PeopleItem = props => {
         <li>Hair Color: {person.hair_color}</li>
         <li>Skin Color: {person.skin_color}</li>
         <li className="ms-4 mt-2">
-          <p className="fw-bold fs-4">Movies :</p>
+          <p className=" fs-4">Movies :</p>
           <ul className="list-group">
             {person.films.map(url => (
               <MovieItem movieUrl={url} key={url} />
@@ -34,18 +42,15 @@ const PeopleItem = props => {
     </div>
   );
 
-  useEffect(() => {}, []);
-
-  useEffect(() => {}, []);
-
   return (
     <li className={`list-group-item ${detailsToggle ? "bg-light" : ""}`}>
       <div className="row">
-        <h3 className="col-9">{person.name}</h3>
+        <h3 className="col-9 ">{person.name}</h3>
         <button
           className={`btn col-3 btn-${detailsToggle ? "danger" : "primary"}`}
           onClick={() => {
             setDetailsToggle(!detailsToggle);
+            onDetailsChanged(personId);
           }}
         >
           {detailsToggle ? "Hide Details" : "Show Details"}

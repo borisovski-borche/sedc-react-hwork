@@ -13,12 +13,18 @@ class PeopleList extends Component {
       currentPage: 1,
       total: 0,
       loading: false,
-      hideDetails: true,
+      selectedId: "",
     };
   }
   changePage = number => {
     this.setState({
       currentPage: number,
+    });
+  };
+
+  onDetailsChanged = id => {
+    this.setState({
+      selectedId: id,
     });
   };
 
@@ -30,22 +36,10 @@ class PeopleList extends Component {
   }
 
   componentDidUpdate(_, prevState) {
-    console.log("updated");
     if (prevState.currentPage !== this.state.currentPage) {
       this.fetchPeople(this.state.currentPage);
     }
-    if (!this.state.hideDetails) {
-      this.setState({
-        hideDetails: true,
-      });
-    }
   }
-
-  hideAllDetails = bool => {
-    this.setState({
-      hideDetails: bool,
-    });
-  };
 
   fetchPeople = async page => {
     this.setState({
@@ -61,13 +55,6 @@ class PeopleList extends Component {
       total: response.data.count,
       loading: false,
     });
-
-    if (!response.data.next) {
-      this.setState({
-        nextDisabled: true,
-      });
-      console.log(this.state.nextDisabled);
-    }
   };
 
   render() {
@@ -87,7 +74,15 @@ class PeopleList extends Component {
         ) : (
           <ul className="list-group">
             {this.state.people.map(person => {
-              return <PeopleItem person={person} key={person.name} />;
+              return (
+                <PeopleItem
+                  person={person}
+                  key={person.name}
+                  personId={person.name}
+                  onDetailsChanged={this.onDetailsChanged}
+                  selectedId={this.state.selectedId}
+                />
+              );
             })}
           </ul>
         )}
