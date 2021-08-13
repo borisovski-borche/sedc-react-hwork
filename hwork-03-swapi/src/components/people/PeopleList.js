@@ -12,7 +12,6 @@ class PeopleList extends Component {
       people: [],
       currentPage: 1,
       total: 0,
-      nextDisabled: false,
       loading: false,
     };
   }
@@ -57,18 +56,18 @@ class PeopleList extends Component {
 
   render() {
     return (
-      <div className="d-flex align-items-center flex-column m-5">
+      <div className="d-flex flex-column p-3 col-6">
+        <h2 className="text-center m-3">People of Star Wars</h2>
         <Pagination
           changePage={this.changePage}
           currentPage={this.state.currentPage}
-          nextDisabled={this.state.nextDisabled}
           total={this.state.total}
-          pageDisplayNum={6}
+          pageDisplayNum={3}
         />
         {this.state.loading ? (
-          <p className="fs-2">Loading...</p>
+          <p className="fs-2 text-center">Loading...</p>
         ) : (
-          <ul className="list-group w-50">
+          <ul className="list-group">
             {this.state.people.map(person => {
               return <PeopleItem person={person} key={person.name} />;
             })}
