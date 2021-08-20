@@ -43,18 +43,30 @@ const defaultBooks = [
 ];
 
 const BooksContextProvider = props => {
-  const [books, setBooks] = useState(defaultBooks);
+  const localStorageBooks = JSON.parse(
+    window.localStorage.getItem("books")
+  ).map(
+    book =>
+      new Book(
+        book.id,
+        book.name,
+        book.authorName,
+        book.published,
+        book.inStock,
+        book.genre,
+        book.coverImgUrl
+      )
+  );
+
+  const [books, setBooks] = useState(localStorageBooks || defaultBooks);
   const [cart, setCart] = useState([]);
 
   useEffect(() => {
-    window.localStorage.setItem("books", JSON.stringify(books));
-
-    const parsedBooks = JSON.parse(window.localStorage.getItem("books"));
-
-    if (books.length !== parsedBooks.length) {
-      setBooks(parsedBooks);
+    if (!localStorageBooks.length) {
+      window.localStorage.setItem("books", JSON.stringify(defaultBooks));
     }
-  }, [books]);
+    window.localStorage.setItem("books", JSON.stringify(books));
+  }, [books, localStorageBooks.length]);
 
   const addBookToCart = book => {
     if (cart?.find(prevBook => prevBook.id === book.id)) {
