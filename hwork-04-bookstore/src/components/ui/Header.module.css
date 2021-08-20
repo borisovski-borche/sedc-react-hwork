@@ -1,0 +1,44 @@
+.iconContainer {
+  display: flex;
+}
+
+.iconContainer div {
+  margin: 10px;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.addIcon {
+  background-color: blue;
+}
+
+.cartIcon {
+  position: relative;
+  background-color: rgb(121, 121, 0);
+}
+
+.cartIcon span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 26px;
+  width: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconContainer i {
+  color: white;
+  font-size: 2rem;
+}
+
+.heading {
+  text-decoration: none;
+}
