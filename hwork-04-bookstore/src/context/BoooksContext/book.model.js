@@ -22,11 +22,4 @@ export class Book {
     this.inStock += this.inShoppingCart;
     this.inShoppingCart = 0;
   }
-
-  removeFromCart() {
-    if (this.inShoppingCart > 0) {
-      this.inStock++;
-      this.inShoppingCart--;
-    }
-  }
 }
