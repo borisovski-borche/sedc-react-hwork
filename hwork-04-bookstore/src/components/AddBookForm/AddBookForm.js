@@ -31,8 +31,7 @@ const AddBookForm = () => {
       data.published,
       data.inStock,
       data.genre,
-      data.coverImgUrl || placeholderImgUrl,
-      new Date()
+      data.coverImgUrl || placeholderImgUrl
     );
 
     booksContext.addBookToStore(book);

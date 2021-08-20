@@ -1,14 +1,5 @@
 export class Book {
-  constructor(
-    id,
-    name,
-    authorName,
-    published,
-    inStock,
-    genre,
-    coverImgUrl,
-    createdAt = new Date()
-  ) {
+  constructor(id, name, authorName, published, inStock, genre, coverImgUrl) {
     this.id = id;
     this.name = name;
     this.authorName = authorName;

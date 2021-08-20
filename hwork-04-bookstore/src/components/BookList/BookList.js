@@ -5,6 +5,8 @@ import BookItem from "./BookItem";
 const BookList = props => {
   const booksContext = useContext(BooksContext);
 
+  console.log(booksContext.books);
+
   return (
     <div className="d-flex flex-wrap">
       {booksContext.books.map(book => {
