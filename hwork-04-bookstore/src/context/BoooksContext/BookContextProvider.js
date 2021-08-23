@@ -1,48 +1,12 @@
 import BooksContext from "./books.context";
 import { Book } from "./book.model";
-import { v4 as uuid } from "uuid";
+
 import { useState, useEffect } from "react";
 
-const defaultBooks = [
-  new Book(
-    uuid(),
-    "Name of the Wind",
-    "Patrick Rothfuss",
-    "2007",
-    30,
-    "Fantasy",
-    "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1270352123l/186074.jpg"
-  ),
-  new Book(
-    uuid(),
-    "Project Hail Mary",
-    "Andy Weir",
-    "2021",
-    5,
-    "Science Fiction",
-    "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1597695864l/54493401.jpg"
-  ),
-  new Book(
-    uuid(),
-    "The Pillars of the Earth",
-    "Ken Follet",
-    "1989",
-    120,
-    "Historical Fiction",
-    "https://upload.wikimedia.org/wikipedia/en/b/b3/PillarsOfTheEarth.jpg"
-  ),
-  new Book(
-    uuid(),
-    "Red Rising",
-    "Pierce Brown",
-    "2014",
-    64,
-    "Science Fiction",
-    "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1461354651l/15839976.jpg"
-  ),
-];
+import { defaultBooks, defaultUsers } from "./data";
 
 const BooksContextProvider = props => {
+  //local storage setup
   const localStorageBooks = JSON.parse(
     window.localStorage.getItem("books")
   ).map(
@@ -58,8 +22,10 @@ const BooksContextProvider = props => {
       )
   );
 
+  //state changes
   const [books, setBooks] = useState(localStorageBooks || defaultBooks);
   const [cart, setCart] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     if (!localStorageBooks.length) {
@@ -68,6 +34,7 @@ const BooksContextProvider = props => {
     window.localStorage.setItem("books", JSON.stringify(books));
   }, [books, localStorageBooks.length]);
 
+  //books mehtods
   const addBookToCart = book => {
     if (cart?.find(prevBook => prevBook.id === book.id)) {
       setCart(
@@ -79,7 +46,6 @@ const BooksContextProvider = props => {
           return mapBook;
         })
       );
-
       return;
     }
     book.addToCart();
@@ -108,15 +74,39 @@ const BooksContextProvider = props => {
     return cart.reduce((sum, book) => sum + book.inShoppingCart, 0);
   };
 
+  //auth related methods
+  const isAdminCheck = user => {
+    return user.isAdmin;
+  };
+
+  const loginUser = (email, password) => {
+    const user = defaultUsers.find(
+      user => user.email === email && user.password === password
+    );
+    if (user) {
+      setLoggedInUser(user);
+      return true;
+    }
+    return false;
+  };
+
+  const logoutUser = () => {
+    setLoggedInUser(null);
+  };
+
   return (
     <BooksContext.Provider
       value={{
         books,
         cart,
+        loggedInUser,
         addBookToCart,
         addBookToStore,
         removeBookFromCart,
         getTotalOrders,
+        isAdminCheck,
+        loginUser,
+        logoutUser,
       }}
     >
       {props.children}

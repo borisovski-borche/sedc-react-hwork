@@ -9,21 +9,38 @@ const Header = props => {
   const booksContext = useContext(BooksContext);
   const totalOrders = booksContext.getTotalOrders();
 
+  const onLogout = isLoggedin => {
+    isLoggedin && booksContext.logoutUser();
+  };
+
   return (
     <header className="m-4 d-flex justify-content-between">
       <Link to="/" style={{ textDecoration: "none" }}>
-        <h1 className="display-4">The Bookstore Homework</h1>
+        <h1 className="display-4">The Bookstore Homework (with users!)</h1>
       </Link>
       <div className={classes.iconContainer}>
         <Link to="/shopping-cart">
-          <div className={classes.cartIcon}>
-            <i className="bi bi-cart p-3"></i>
-            <span className="badge bg-danger">{totalOrders}</span>
-          </div>
+          {booksContext.loggedInUser && (
+            <div className={classes.cartIcon}>
+              <i className="bi bi-cart p-3"></i>
+              <span className="badge bg-danger">{totalOrders}</span>
+            </div>
+          )}
         </Link>
-        <Link to="/add">
-          <div className={classes.addIcon}>
-            <i className="bi bi-plus-lg"></i>
+        {booksContext.loggedInUser &&
+          booksContext.isAdminCheck(booksContext.loggedInUser) && (
+            <Link to="/add">
+              <div className={classes.addIcon}>
+                <i className="bi bi-plus-lg"></i>
+              </div>
+            </Link>
+          )}
+        <Link to="/login" style={{ textDecoration: "none" }}>
+          <div
+            className={classes.login}
+            onClick={() => onLogout(booksContext.loggedInUser)}
+          >
+            {booksContext.loggedInUser ? "Sign out" : "Sign in"}
           </div>
         </Link>
         <Link to="/">

@@ -13,6 +13,14 @@
   border-radius: 50%;
 }
 
+.login {
+  font-size: 1.2rem;
+  text-decoration: none;
+  background-color: blue;
+  color: white;
+  font-family: "Oswald";
+}
+
 .addIcon {
   background-color: blue;
 }

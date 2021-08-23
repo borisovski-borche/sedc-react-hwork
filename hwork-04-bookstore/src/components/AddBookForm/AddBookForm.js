@@ -23,6 +23,10 @@ const AddBookForm = () => {
   const coverImgUrl = watch("coverImgUrl");
   const booksContext = useContext(BooksContext);
 
+  if (!booksContext.loggedInUser || !booksContext.isAdminCheck()) {
+    history.replace("/");
+  }
+
   const createAndAddBook = data => {
     const book = new Book(
       uuid(),

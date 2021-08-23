@@ -5,6 +5,7 @@ import Header from "./components/ui/Header";
 import BookStorePage from "./pages/BookStorePage";
 import AddBookPage from "./pages/AddBookPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route path="/shopping-cart">
           <ShoppingCartPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
         </Route>
       </Router>
     </Layout>
