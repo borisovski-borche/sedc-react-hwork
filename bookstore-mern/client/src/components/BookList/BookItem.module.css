@@ -1,0 +1,12 @@
+.BookItem {
+  width: 400px;
+  margin: 10px;
+}
+
+.BookItem img {
+  max-height: 200px;
+}
+
+.BookItem ul {
+  list-style: none;
+}
