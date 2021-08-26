@@ -25,7 +25,7 @@ const AddBookForm = () => {
   const placeholderImgUrl =
     "https://leadershiftinsights.com/wp-content/uploads/2019/07/no-book-cover-available.jpg";
 
-  const { register, handleSubmit, watch, setFocus } = useForm();
+  const { register, handleSubmit, watch, setFocus, reset } = useForm();
 
   useEffect(() => {
     setFocus("title");
@@ -40,16 +40,25 @@ const AddBookForm = () => {
       coverImgUrl: bookData.coverImgUrl || placeholderImgUrl,
     };
 
-    addBook(parsedBookData).then(res => {
-      AC.fetchBooksFromDb();
-      history.replace("/");
-    });
+    addBook(parsedBookData)
+      .then(res => {
+        AC.fetchBooksFromDb();
+        history.replace("/");
+      })
+      .catch(error => {
+        console.log(error);
+        reset();
+        setIsFormValid(false);
+      });
   };
 
   return (
     <form
       className={classes.form}
-      onSubmit={handleSubmit(createAndAddBook, error => setIsFormValid(false))}
+      onSubmit={handleSubmit(createAndAddBook, error => {
+        reset();
+        setIsFormValid(false);
+      })}
     >
       <div className="bg-light p-3">
         <h2 className="text-center">Add Book</h2>
@@ -116,7 +125,7 @@ const AddBookForm = () => {
           </div>
           {!isFormValid && (
             <p className="fs-4 text-danger text-center">
-              All fields except Image URL are Mandatory
+              Invalid Form Submission
             </p>
           )}
         </div>

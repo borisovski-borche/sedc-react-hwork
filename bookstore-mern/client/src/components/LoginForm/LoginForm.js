@@ -23,7 +23,6 @@ const LoginForm = props => {
       .auth()
       .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        console.log(error);
         isUserValid = false;
         setIsFormValid(false);
         reset();

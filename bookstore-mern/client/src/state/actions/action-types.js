@@ -5,4 +5,5 @@ export const actionTypes = {
   ADD_BOOK_CART: "ADD_BOOK_TO_CART",
   LOGIN_USER: "LOGIN_USER",
   LOGOUT_USER: "LOGOUT_USER",
+  CLEAR_CART: "CLEAR_CART",
 };

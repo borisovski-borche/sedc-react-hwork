@@ -6,6 +6,7 @@ import BookStorePage from "./pages/BookStorePage";
 import AddBookPage from "./pages/AddBookPage";
 import ShoppingCartPage from "./pages/ShoppingCartPage";
 import LoginPage from "./pages/LoginPage";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route path="/login">
           <LoginPage />
+        </Route>
+        <Route path="/checkout">
+          <CheckoutPage />
         </Route>
       </Router>
     </Layout>

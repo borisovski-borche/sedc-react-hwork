@@ -22,8 +22,6 @@ const Header = props => {
 
   const auth = useSelector(state => state.auth);
 
-  console.log(auth);
-
   const onLogout = () => {
     AC.logOutUser();
   };

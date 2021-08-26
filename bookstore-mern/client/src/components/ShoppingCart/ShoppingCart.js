@@ -1,13 +1,18 @@
 import React, { Fragment } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actionCreators from "../../state/actions";
 
 import ShoppingCartItem from "./ShoppingCartItem";
 
 const ShoppingCart = props => {
   const books = useSelector(state => state.books);
   const auth = useSelector(state => state.auth);
+
+  const dispatch = useDispatch();
+  const AC = bindActionCreators(actionCreators, dispatch);
 
   const booksInCart = books.filter(book => book.inShoppingCart);
 
@@ -26,6 +31,16 @@ const ShoppingCart = props => {
           ))}
         </ul>
       </div>
+      {!!booksInCart.length && (
+        <div className="btn-group m-3">
+          <Link to="/checkout">
+            <button className="btn btn-success">Go to Checkout</button>
+          </Link>
+          <button className="btn btn-danger" onClick={() => AC.clearCart()}>
+            Clear Cart
+          </button>
+        </div>
+      )}
     </Fragment>
   );
 };

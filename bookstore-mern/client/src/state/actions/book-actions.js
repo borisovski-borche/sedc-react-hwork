@@ -20,3 +20,7 @@ export const removeBookFromCart = bookId => {
     dispatch({ type: AT.REMOVE_BOOK_CART, payload: { bookId } });
   };
 };
+
+export const clearCart = () => {
+  return { type: AT.CLEAR_CART };
+};

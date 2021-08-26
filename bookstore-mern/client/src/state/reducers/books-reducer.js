@@ -38,6 +38,15 @@ const booksReducer = (state = [], { type, payload }) => {
         return book;
       });
 
+    case AT.CLEAR_CART:
+      console.log("here");
+      console.log(state);
+      return state.map(book => {
+        book.inShoppingCart = false;
+        book.resetOrder();
+        return book;
+      });
+
     default:
       return state;
   }

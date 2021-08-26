@@ -34,7 +34,7 @@ export const addBook = async bookData => {
     const response = await axios.post(url, bookData, header);
     return response;
   } catch (error) {
-    return error;
+    return Promise.reject(error);
   }
 };
 

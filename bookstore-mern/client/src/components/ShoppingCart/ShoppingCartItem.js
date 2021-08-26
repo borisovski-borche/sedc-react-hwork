@@ -1,7 +1,7 @@
 import { useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-
 import * as actionCreators from "../../state/actions";
 
 import classes from "./ShoppingCartItem.module.css";
@@ -39,7 +39,9 @@ const ShoppingCartItem = props => {
               onClick={() => {
                 if (book.orderCount === 1) {
                   AC.removeBookFromCart(book.id);
+                  return;
                 }
+                book.removeFromCart();
                 setOrderCount(book.orderCount);
               }}
             >
